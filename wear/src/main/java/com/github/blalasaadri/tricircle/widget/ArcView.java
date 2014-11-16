@@ -1,5 +1,7 @@
 package com.github.blalasaadri.tricircle.widget;
 
+import android.animation.TimeInterpolator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -8,8 +10,11 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.github.blalasaadri.tricircle.R;
+
+import timber.log.Timber;
 
 /**
  * A View which will display a partial ring and a hand to display a numerical value.
@@ -19,9 +24,11 @@ public class ArcView extends View {
     private static final int DEFAULT_STROKE_WIDTH = 5;
 
     private final Paint ringPaint, handPaint;
+    private final TimeInterpolator interpolator;
 
     private RectF oval;
-    private float angle, scale;
+    private int angle, lastValue = -1;
+    private float scale;
     private float width;
     private int lineWidth, handRadius;
     private float padding;
@@ -32,10 +39,11 @@ public class ArcView extends View {
         ringPaint = new Paint();
         handPaint = new Paint();
 
+        // Read out attributes from the watchface.xml
         TypedArray attributes =
                 context.getTheme().obtainStyledAttributes(attrs, R.styleable.ArcView, 0, 0);
         try {
-            angle = attributes.getFloat(R.styleable.ArcView_angle, 0);
+            angle = attributes.getInteger(R.styleable.ArcView_angle, 0);
             lineWidth = attributes.getInteger(R.styleable.ArcView_lineWidth, DEFAULT_STROKE_WIDTH);
             handRadius = attributes.getInteger(R.styleable.ArcView_handRadius, DEFAULT_STROKE_WIDTH);
             scale = attributes.getFloat(R.styleable.ArcView_scale, 1f);
@@ -45,6 +53,21 @@ public class ArcView extends View {
             attributes.recycle();
         }
         init();
+
+        // This interpolator will run an AccelerateDecelerateInterpolator in the second half of the
+        // animation and return 0 before that.
+        interpolator = new TimeInterpolator() {
+            private AccelerateDecelerateInterpolator innerInterpolator = new AccelerateDecelerateInterpolator();
+
+            @Override
+            public float getInterpolation(float input) {
+                if(input < 0.5f) {
+                    return 0;
+                } else {
+                    return innerInterpolator.getInterpolation(input * 2f - 1f);
+                }
+            }
+        };
     }
 
     private void init() {
@@ -54,16 +77,52 @@ public class ArcView extends View {
     }
 
     /**
-     * Sets the angle up to which the arc should be drawn.
+     * Sets the value which should be displayed by this arc.
      *
-     * @param angle an angle (0 <= angle <= 360) which the arc should draw
+     * @param value the value to which the arc should be set
+     * @param maxValue the maximum value this arc can reach
+     * @param render is it one second before the next value change?
      */
-    public void setAngle(float angle) {
-        // only change if the difference is greater than 1 degree
-        if(Math.abs(angle - this.angle) > 1f) {
-            this.angle = angle;
+    public void setValue(int value, final int maxValue, boolean render) {
+        if(lastValue == -1) {
+            // If this is the first time the face is loaded just set it and don't animate
+            lastValue = value;
+            this.angle = (360 / maxValue) * (value % maxValue);
             invalidate();
             requestLayout();
+        } else if(value != lastValue || render) {
+            // Only change the values if the difference to the previous value is greater than 1°
+            // or it is one second before the next change
+            lastValue = value;
+            // We start animating the next value as the animation takes one second
+            int nextValue = (value + 1) % 60;
+            if(nextValue == 0) {
+                nextValue = 60;
+            }
+            int nextAngle = (360 / maxValue) * nextValue;
+            int previousAngle = (360 / maxValue) * (value % maxValue);
+
+            ValueAnimator animator;
+            // The animation from (maxValue - 1) to maxValue has to be handled seperately
+            if(value == maxValue - 1) {
+                animator = ValueAnimator.ofInt(previousAngle, 360);
+                Timber.v("animating %d (%d°) to 0 (360°)", value, previousAngle);
+            } else {
+                animator = ValueAnimator.ofInt(previousAngle, nextAngle);
+                Timber.v("animating %d (%d°) to %d (%d°)", value, previousAngle, nextValue, nextAngle);
+            }
+            animator.setDuration(1000);
+            animator.setInterpolator(interpolator);
+            // The following Listener will update the view every time the Animator has a new value
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    ArcView.this.angle = ((Number) animation.getAnimatedValue()).intValue() % 360;
+                    ArcView.this.invalidate();
+                    ArcView.this.requestLayout();
+                }
+            });
+            animator.start();
         }
     }
 

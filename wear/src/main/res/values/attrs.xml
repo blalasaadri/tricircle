@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ArcView">
-        <attr name="angle" format="float" />
+        <attr name="angle" format="integer" />
         <attr name="scale" format="float" />
         <attr name="lineWidth" format="integer" />
         <attr name="handRadius" format="integer" />

@@ -21,6 +21,10 @@ import butterknife.InjectView;
 import hugo.weaving.DebugLog;
 import timber.log.Timber;
 
+import static org.joda.time.DateTimeConstants.HOURS_PER_DAY;
+import static org.joda.time.DateTimeConstants.MINUTES_PER_HOUR;
+import static org.joda.time.DateTimeConstants.SECONDS_PER_MINUTE;
+
 public class Watchface extends FrameLayout implements IWatchface {
 
     private static final int SHADE_COLOUR = Color.DKGRAY;
@@ -95,31 +99,22 @@ public class Watchface extends FrameLayout implements IWatchface {
         mWatch.onDetachedFromWindow();
     }
 
-    private void rotateHands(int hour, int minute, int second) {
-        int rotHr = 30 * hour;
-        int rotMin = 6 * minute;
-        int rotSec = 6 * second;
-
-        hourArc.setAngle(rotHr);
-        minuteArc.setAngle(rotMin);
-        secondArc.setAngle(rotSec);
-    }
-
     @Override
     public void onTimeChanged(@NonNull DateTime time) {
-        Timber.v("onTimeChanged()");
+        int hour = time.getHourOfDay() % 12;
+        int minute = time.getMinuteOfHour();
+        int second = time.getSecondOfMinute();
+        Timber.i("Setting time to %d:%d:%d", hour, minute, second);
 
-        int hr = time.getHourOfDay() % 12;
-        int min = time.getMinuteOfHour();
-        int sec = time.getSecondOfMinute();
-
-        rotateHands(hr, min, sec);
+        hourArc.setValue(hour, HOURS_PER_DAY / 2, (minute == 59) && (second == 59));
+        minuteArc.setValue(minute, MINUTES_PER_HOUR, (second == 59));
+        secondArc.setValue(second, SECONDS_PER_MINUTE, true);
         invalidate();
     }
 
     @Override
     public void onBatteryLevelChanged(int percentage) {
-        Timber.v("onBatteryLevelChanged()", percentage);
+        Timber.d("battery level changed to %d", percentage);
 
         // Determine the colour to display the charge indicator in
         int greenValue;
