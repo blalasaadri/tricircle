@@ -2,23 +2,11 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/pre-dexed/debug/hugo-annotations-1.1.0-d770a0a60d5f225d4eb07b4b520338d08b0332e6.jar"
-        jar="/Users/acollinson/.gradle/caches/modules-2/files-2.1/com.jakewharton.hugo/hugo-annotations/1.1.0/e67a622a9034c9e995750528180b8e19434f6e02/hugo-annotations-1.1.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="e67a622a9034c9e995750528180b8e19434f6e02"/>
-    <item
         dex="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-b5f82ddd28133088f342463a32601ab53e1f62d8.jar"
         jar="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
-    <item
-        dex="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/pre-dexed/debug/classes-045ae0e9dbf7dd1da76a1c28015233488371d27b.jar"
-        jar="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/1.0.0/classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="6804efbb78d7facc2e1aa107c7342bee83afae45"/>
     <item
         dex="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/pre-dexed/debug/classes-b39f422dc08cdfa0bf40ecebb6fa08329ea2a9e8.jar"
         jar="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/6.1.11/classes.jar"
@@ -32,11 +20,11 @@
         revision="20.0.0"
         sha1="25bac7a5db190df4dabc9e282b0cb57d400c415b"/>
     <item
-        dex="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-043e3ef163daa2a9d39c20db9b626e797fcbb386.jar"
-        jar="/Users/acollinson/Programme/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        dex="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/pre-dexed/debug/joda-time-2.5-1953036f3bbc2a81bea8debfdbe43d13dde1d6ec.jar"
+        jar="/Users/acollinson/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.5/c73038a3688525aad5cf33409df483178290cd64/joda-time-2.5.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+        sha1="c73038a3688525aad5cf33409df483178290cd64"/>
     <item
         dex="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-41f340686570076afacb9913d6b45fc237ce7f96.jar"
         jar="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/exploded-aar/com.android.support/support-v13/20.0.0/libs/internal_impl-20.0.0.jar"
@@ -50,6 +38,24 @@
         revision="20.0.0"
         sha1="e128103d5281ddd26195a7f980b36d0d005a4e56"/>
     <item
+        dex="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/pre-dexed/debug/hugo-annotations-1.1.0-d770a0a60d5f225d4eb07b4b520338d08b0332e6.jar"
+        jar="/Users/acollinson/.gradle/caches/modules-2/files-2.1/com.jakewharton.hugo/hugo-annotations/1.1.0/e67a622a9034c9e995750528180b8e19434f6e02/hugo-annotations-1.1.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e67a622a9034c9e995750528180b8e19434f6e02"/>
+    <item
+        dex="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/pre-dexed/debug/classes-045ae0e9dbf7dd1da76a1c28015233488371d27b.jar"
+        jar="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/1.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="6804efbb78d7facc2e1aa107c7342bee83afae45"/>
+    <item
+        dex="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-043e3ef163daa2a9d39c20db9b626e797fcbb386.jar"
+        jar="/Users/acollinson/Programme/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
         dex="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/pre-dexed/debug/timber-2.4.2-58b91508c58e4d27c87b406d8eec04cb5e96badc.jar"
         jar="/Users/acollinson/.gradle/caches/modules-2/files-2.1/com.jakewharton.timber/timber/2.4.2/1f875e143b83cf04899dd6db12765fe9ba483656/timber-2.4.2.jar"
         jumboMode="false"
@@ -60,7 +66,7 @@
         jar="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/exploded-aar/TriCircle.submodules.watchface-gears/library/unspecified/classes.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="1876019937cf144d4d9759a93ec55b878407acc9"/>
+        sha1="a431f59598f9aa305c1de755a8ecaf57a85e9d96"/>
     <item
         dex="/Users/acollinson/Documents/workspace-wear/TriCircle/wear/build/intermediates/pre-dexed/debug/aspectjrt-1.7.4-b42a3c6016e9d32fe6f2990e180e0042f656b002.jar"
         jar="/Users/acollinson/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.7.4/e49a5c0acee8fd66225dc1d031692d132323417f/aspectjrt-1.7.4.jar"

@@ -2,6 +2,7 @@
 <com.github.blalasaadri.tricircle.widget.Watchface
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tricolour="http://schemas.android.com/apk/res-auto"
     android:id="@+id/watchface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,20 +14,41 @@
         android:src="@drawable/background_normal"
         android:contentDescription="@string/bg_descr" />
 
-    <ImageView style="@style/GearsWatchLayer"
-        android:id="@+id/ring_hour"
-        android:src="@drawable/ring_hour_normal"
-        android:contentDescription="@string/ring_hour_descr" />
+    <com.github.blalasaadri.tricircle.widget.ArcView
+        android:id="@+id/hour_arc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:contentDescription="@string/ring_hour_descr"
+        tricolour:angle="0"
+        tricolour:lineWidth="5"
+        tricolour:handRadius="8"
+        tricolour:scale=".74"
+        tricolour:color="@color/red" />
 
-    <ImageView style="@style/GearsWatchLayer"
-        android:id="@+id/ring_minute"
-        android:src="@drawable/ring_minute_normal"
-        android:contentDescription="@string/ring_minute_descr" />
+    <com.github.blalasaadri.tricircle.widget.ArcView
+        android:id="@+id/minute_arc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:contentDescription="@string/ring_minute_descr"
+        tricolour:angle="0"
+        tricolour:lineWidth="5"
+        tricolour:handRadius="8"
+        tricolour:scale=".62"
+        tricolour:color="@color/yellow" />
 
-    <ImageView style="@style/GearsWatchLayer"
-        android:id="@+id/ring_second"
-        android:src="@drawable/ring_second_normal"
-        android:contentDescription="@string/ring_second_descr" />
+    <com.github.blalasaadri.tricircle.widget.ArcView
+        android:id="@+id/second_arc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:contentDescription="@string/ring_second_descr"
+        tricolour:angle="0"
+        tricolour:lineWidth="5"
+        tricolour:handRadius="8"
+        tricolour:scale=".50"
+        tricolour:color="@color/blue" />
 
     <ImageView style="@style/GearsWatchLayer"
         android:id="@+id/charge_indicator"
@@ -47,20 +69,5 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <ImageView style="@style/GearsWatchLayer"
-        android:id="@+id/hand_hour"
-        android:src="@drawable/hand_hour_normal"
-        android:contentDescription="@string/hand_hour_descr" />
-
-    <ImageView style="@style/GearsWatchLayer"
-        android:id="@+id/hand_minute"
-        android:src="@drawable/hand_minute_normal"
-        android:contentDescription="@string/hand_minute_descr" />
-
-    <ImageView style="@style/GearsWatchLayer"
-        android:id="@+id/hand_second"
-        android:src="@drawable/hand_second_normal"
-        android:contentDescription="@string/hand_second_descr" />
 
 </com.github.blalasaadri.tricircle.widget.Watchface>

@@ -1,6 +1,18 @@
+# IDE files
 .idea/
 *.iml
+.classpath
+.project
 **/*.iml
-build/
 **/build/
+build/
+
+# Other settings
+.gradle/
+
+# Other files
 generate-project.py
+
+# OS Previews
+**/.DS_Store
+**/Thumbs.db

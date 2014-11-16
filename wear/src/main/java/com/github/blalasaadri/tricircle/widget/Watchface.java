@@ -4,9 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +14,7 @@ import com.twotoasters.watchface.gears.widget.IWatchface;
 import com.twotoasters.watchface.gears.widget.Watch;
 import com.github.blalasaadri.tricircle.R;
 
-import java.util.Calendar;
+import org.joda.time.DateTime;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -24,18 +23,20 @@ import timber.log.Timber;
 
 public class Watchface extends FrameLayout implements IWatchface {
 
-    @InjectView(R.id.face)              ImageView face;
-    @InjectView(R.id.hand_hour)         ImageView handHour;
-    @InjectView(R.id.ring_hour)         ImageView ringHour;
-    @InjectView(R.id.hand_minute)       ImageView handMinute;
-    @InjectView(R.id.ring_minute)       ImageView ringMinute;
-    @InjectView(R.id.hand_second)       ImageView handSecond;
-    @InjectView(R.id.ring_second)       ImageView ringSecond;
-    @InjectView(R.id.charge_indicator)  ImageView chargeIndicator;
+    private static final int SHADE_COLOUR = Color.DKGRAY;
+
+    @InjectView(R.id.face)
+    ImageView face;
+    @InjectView(R.id.hour_arc)
+    ArcView hourArc;
+    @InjectView(R.id.minute_arc)
+    ArcView minuteArc;
+    @InjectView(R.id.second_arc)
+    ArcView secondArc;
+    @InjectView(R.id.charge_indicator)
+    ImageView chargeIndicator;
     @InjectView(R.id.charge_text)
     TextView chargeText;
-
-    private static final int SHADE_COLOUR = Color.DKGRAY;
 
     private Watch mWatch;
 
@@ -47,23 +48,23 @@ public class Watchface extends FrameLayout implements IWatchface {
     @SuppressWarnings("unused")
     public Watchface(Context context) {
         super(context);
-        init(context, null, 0);
+        init();
     }
 
     @SuppressWarnings("unused")
     public Watchface(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs, 0);
+        init();
     }
 
     @SuppressWarnings("unused")
     public Watchface(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(context, attrs, defStyle);
+        init();
     }
 
     @DebugLog
-    private void init(Context context, AttributeSet attrs, int defStyle) {
+    private void init() {
         mWatch = new Watch(this);
 
         overlayHour = Color.RED;
@@ -99,18 +100,18 @@ public class Watchface extends FrameLayout implements IWatchface {
         int rotMin = 6 * minute;
         int rotSec = 6 * second;
 
-        handHour.setRotation(rotHr);
-        handMinute.setRotation(rotMin);
-        handSecond.setRotation(rotSec);
+        hourArc.setAngle(rotHr);
+        minuteArc.setAngle(rotMin);
+        secondArc.setAngle(rotSec);
     }
 
     @Override
-    public void onTimeChanged(Calendar time) {
+    public void onTimeChanged(@NonNull DateTime time) {
         Timber.v("onTimeChanged()");
 
-        int hr = time.get(Calendar.HOUR_OF_DAY) % 12;
-        int min = time.get(Calendar.MINUTE);
-        int sec = time.get(Calendar.SECOND);
+        int hr = time.getHourOfDay() % 12;
+        int min = time.getMinuteOfHour();
+        int sec = time.getSecondOfMinute();
 
         rotateHands(hr, min, sec);
         invalidate();
@@ -173,12 +174,9 @@ public class Watchface extends FrameLayout implements IWatchface {
     @Override
     public boolean isInEditMode() {
         return face.isInEditMode()
-                || handHour.isInEditMode()
-                || ringHour.isInEditMode()
-                || handMinute.isInEditMode()
-                || ringMinute.isInEditMode()
-                || handSecond.isInEditMode()
-                || ringSecond.isInEditMode()
+                || hourArc.isInEditMode()
+                || minuteArc.isInEditMode()
+                || secondArc.isInEditMode()
                 || chargeIndicator.isInEditMode();
     }
 
@@ -186,58 +184,34 @@ public class Watchface extends FrameLayout implements IWatchface {
     private void setImageResources() {
         if (mInflated) {
             int faceImageResource;
-            int handHourImageResource, ringHourImageResource;
-            int handMinuteImageResource, ringMinuteImageResource;
-            int handSecondImageResource, ringSecondImageResource;
 
             if(mActive) {
                 faceImageResource = R.drawable.background_normal;
-                handHourImageResource = R.drawable.hand_hour_normal;
-                ringHourImageResource = R.drawable.ring_hour_normal;
-                handMinuteImageResource = R.drawable.hand_minute_normal;
-                ringMinuteImageResource = R.drawable.ring_minute_normal;
-                handSecondImageResource = R.drawable.hand_second_normal;
-                ringSecondImageResource = R.drawable.ring_second_normal;
             } else {
                 faceImageResource = R.drawable.background_dimmed;
-                handHourImageResource = R.drawable.hand_hour_dimmed;
-                ringHourImageResource = R.drawable.ring_hour_dimmed;
-                handMinuteImageResource = R.drawable.hand_minute_dimmed;
-                ringMinuteImageResource = R.drawable.ring_minute_dimmed;
-                handSecondImageResource = R.drawable.hand_second_dimmed;
-                ringSecondImageResource = R.drawable.ring_second_dimmed;
             }
             face.setImageResource(faceImageResource);
-            handHour.setImageResource(handHourImageResource);
-            ringHour.setImageResource(ringHourImageResource);
-            handMinute.setImageResource(handMinuteImageResource);
-            ringMinute.setImageResource(ringMinuteImageResource);
-            handSecond.setImageResource(handSecondImageResource);
-            ringSecond.setImageResource(ringSecondImageResource);
 
             setColourFilters();
         }
     }
 
     private void setColourFilters() {
-        int colourHour, colourMinute, colourSecond, colourIndicator;
+        int colorHour, colorMinute, colorSecond, colorIndicator;
         if(mActive) {
-            colourHour = overlayHour;
-            colourMinute = overlayMinute;
-            colourSecond = overlaySecond;
-            colourIndicator = overlayIndicator;
+            colorHour = overlayHour;
+            colorMinute = overlayMinute;
+            colorSecond = overlaySecond;
+            colorIndicator = overlayIndicator;
         } else {
-            colourHour = overlayHour | SHADE_COLOUR;
-            colourMinute = overlayMinute | SHADE_COLOUR;
-            colourSecond = overlaySecond | SHADE_COLOUR;
-            colourIndicator = overlayIndicator | SHADE_COLOUR;
+            colorHour = overlayHour | SHADE_COLOUR;
+            colorMinute = overlayMinute | SHADE_COLOUR;
+            colorSecond = overlaySecond | SHADE_COLOUR;
+            colorIndicator = overlayIndicator | SHADE_COLOUR;
         }
-        handHour.setColorFilter(colourHour);
-        ringHour.setColorFilter(colourHour);
-        handMinute.setColorFilter(colourMinute);
-        ringMinute.setColorFilter(colourMinute);
-        handSecond.setColorFilter(colourSecond);
-        ringSecond.setColorFilter(colourSecond);
-        chargeIndicator.setColorFilter(colourIndicator);
+        hourArc.setColor(colorHour);
+        minuteArc.setColor(colorMinute);
+        secondArc.setColor(colorSecond);
+        chargeIndicator.setColorFilter(colorIndicator);
     }
 }
