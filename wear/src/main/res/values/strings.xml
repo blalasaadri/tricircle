@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watchface_name">TCW</string>
+
+    <!-- Descriptions -->
+    <string name="hand_hour_descr">Hour hand</string>
+    <string name="hand_minute_descr">Minute hand</string>
+    <string name="hand_second_descr">Second hand</string>
+    <string name="charge_indicator_descr">Charge indicator</string>
+    <string name="bg_descr">Background</string>
+    <string name="ring_hour_descr">Hour ring</string>
+    <string name="ring_minute_descr">Minute ring</string>
+    <string name="ring_second_descr">Second ring</string>
+
+</resources>

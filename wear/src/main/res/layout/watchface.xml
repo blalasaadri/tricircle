@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.blalasaadri.tricircle.widget.Watchface
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/watchface"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".WatchfaceActivity">
+
+    <ImageView style="@style/GearsWatchLayer"
+        android:id="@+id/face"
+        android:src="@drawable/background_normal"
+        android:contentDescription="@string/bg_descr" />
+
+    <ImageView style="@style/GearsWatchLayer"
+        android:id="@+id/ring_hour"
+        android:src="@drawable/ring_hour_normal"
+        android:contentDescription="@string/ring_hour_descr" />
+
+    <ImageView style="@style/GearsWatchLayer"
+        android:id="@+id/ring_minute"
+        android:src="@drawable/ring_minute_normal"
+        android:contentDescription="@string/ring_minute_descr" />
+
+    <ImageView style="@style/GearsWatchLayer"
+        android:id="@+id/ring_second"
+        android:src="@drawable/ring_second_normal"
+        android:contentDescription="@string/ring_second_descr" />
+
+    <ImageView style="@style/GearsWatchLayer"
+        android:id="@+id/charge_indicator"
+        android:src="@drawable/charge_indicator_normal"
+        android:scaleY=".4"
+        android:scaleX=".4"
+        android:contentDescription="@string/charge_indicator_descr"/>
+
+    <TextView
+        style="@style/GearsWatchLayer"
+        android:id="@+id/charge_text"
+        android:text="0%"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView style="@style/GearsWatchLayer"
+        android:id="@+id/hand_hour"
+        android:src="@drawable/hand_hour_normal"
+        android:contentDescription="@string/hand_hour_descr" />
+
+    <ImageView style="@style/GearsWatchLayer"
+        android:id="@+id/hand_minute"
+        android:src="@drawable/hand_minute_normal"
+        android:contentDescription="@string/hand_minute_descr" />
+
+    <ImageView style="@style/GearsWatchLayer"
+        android:id="@+id/hand_second"
+        android:src="@drawable/hand_second_normal"
+        android:contentDescription="@string/hand_second_descr" />
+
+</com.github.blalasaadri.tricircle.widget.Watchface>
