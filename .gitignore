@@ -1,5 +1,6 @@
 .idea/
 *.iml
 **/*.iml
+build/
 **/build/
 generate-project.py
