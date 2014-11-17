@@ -13,9 +13,9 @@ To modify this watchface you can check it out and set it up with the following c
     git submodule add git@github.com:blalasaadri/watchface-gears.git submodules/watchface-gears
 
 Relevant changes compared to the template were made in the classes
-```com.github.blalasaadri.tricircle.widget.Watchface```,
-```com.github.blalasaadri.tricircle.widget.ArcView``` (which is completely new compared to the
-template) and in the ```res/layout/watchface.xml``` layout file.
+`com.github.blalasaadri.tricircle.widget.Watchface`,
+`com.github.blalasaadri.tricircle.widget.ArcView` (which is completely new compared to the
+template) and in the `res/layout/watchface.xml` layout file.
 
 Possible modifications via XML
 ------------------------------
@@ -35,8 +35,8 @@ arcs. A definition of such an arc may look like this:
 
 The attributes which may be of interest are:
 
-- ```tricircle:angle``` The initial angle in which the arc is rendered. Can be useful for testing purposes and screenshots.
-- ```tricircle:lineWidth``` The width of the arc line. The default value is 5 (as interpreted by ```Paint#setStrokeWidth(float)```)
-- ```tricircle:handRadius``` The radius of the circle at the end of the arc. The default value is 5  (as interpreted by the ```RectF``` in ```Canvas#drawArc(RectF, float, float, boolean, Paint)```)
-- ```tricircle:scale``` The factor of the screen that should be used for the full arc. This is always relative to the minimum of screen height and width.
-- ```tricircle:color``` The color the arc should be drawn in. Both Android color definitions (e.g. ```@color/blue```) and hex values (e.g. ```#F0F0F0```) are supported.
+- `tricircle:angle` The initial angle in which the arc is rendered. Can be useful for testing purposes and screenshots.
+- `tricircle:lineWidth` The width of the arc line. The default value is 5 (as interpreted by `Paint#setStrokeWidth(float)`)
+- `tricircle:handRadius` The radius of the circle at the end of the arc. The default value is 5  (as interpreted by the `RectF` in `Canvas#drawArc(RectF, float, float, boolean, Paint)`)
+- `tricircle:scale` The factor of the screen that should be used for the full arc. This is always relative to the minimum of screen height and width.
+- `tricircle:color` The color the arc should be drawn in. Both Android color definitions (e.g. `@color/blue`) and hex values (e.g. `#F0F0F0`) are supported.
