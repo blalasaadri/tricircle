@@ -21,7 +21,7 @@
         android:layout_gravity="center"
         android:contentDescription="@string/ring_hour_descr"
         tricolour:angle="0"
-        tricolour:lineWidth="5"
+        tricolour:lineWidth="2"
         tricolour:handRadius="8"
         tricolour:scale=".74"
         tricolour:color="@color/red" />
@@ -33,7 +33,7 @@
         android:layout_gravity="center"
         android:contentDescription="@string/ring_minute_descr"
         tricolour:angle="0"
-        tricolour:lineWidth="5"
+        tricolour:lineWidth="2"
         tricolour:handRadius="8"
         tricolour:scale=".62"
         tricolour:color="@color/yellow" />
@@ -45,7 +45,7 @@
         android:layout_gravity="center"
         android:contentDescription="@string/ring_second_descr"
         tricolour:angle="0"
-        tricolour:lineWidth="5"
+        tricolour:lineWidth="2"
         tricolour:handRadius="8"
         tricolour:scale=".50"
         tricolour:color="@color/blue" />

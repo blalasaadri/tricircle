@@ -24,7 +24,8 @@ public class ArcView extends View {
     private static final int DEFAULT_STROKE_WIDTH = 5;
 
     private final Paint ringPaint, handPaint;
-    private final TimeInterpolator interpolator;
+    private TimeInterpolator interpolator;
+    private ValueAnimator.AnimatorUpdateListener animationListener;
 
     private RectF oval;
     private int angle, lastValue = -1;
@@ -53,6 +54,21 @@ public class ArcView extends View {
             attributes.recycle();
         }
         init();
+    }
+
+    private void init() {
+        ringPaint.setStrokeWidth(lineWidth);
+        ringPaint.setStyle(Paint.Style.STROKE);
+        handPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+
+        animationListener = new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                ArcView.this.angle = ((Number) animation.getAnimatedValue()).intValue() % 360;
+                ArcView.this.invalidate();
+                ArcView.this.requestLayout();
+            }
+        };
 
         // This interpolator will run an AccelerateDecelerateInterpolator in the second half of the
         // animation and return 0 before that.
@@ -70,12 +86,6 @@ public class ArcView extends View {
         };
     }
 
-    private void init() {
-        ringPaint.setStrokeWidth(lineWidth);
-        ringPaint.setStyle(Paint.Style.STROKE);
-        handPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-    }
-
     /**
      * Sets the value which should be displayed by this arc.
      *
@@ -90,38 +100,22 @@ public class ArcView extends View {
             this.angle = (360 / maxValue) * (value % maxValue);
             invalidate();
             requestLayout();
-        } else if(value != lastValue || render) {
+        } else if(render) {
             // Only change the values if the difference to the previous value is greater than 1°
             // or it is one second before the next change
             lastValue = value;
             // We start animating the next value as the animation takes one second
-            int nextValue = (value + 1) % 60;
-            if(nextValue == 0) {
-                nextValue = 60;
+            int nextAngle = (360 / maxValue) * ((value + 1) % maxValue);
+            if(nextAngle == 0) {
+                nextAngle = 360;
             }
-            int nextAngle = (360 / maxValue) * nextValue;
-            int previousAngle = (360 / maxValue) * (value % maxValue);
+            int previousAngle = (360 / maxValue) * value;
 
-            ValueAnimator animator;
-            // The animation from (maxValue - 1) to maxValue has to be handled seperately
-            if(value == maxValue - 1) {
-                animator = ValueAnimator.ofInt(previousAngle, 360);
-                Timber.v("animating %d (%d°) to 0 (360°)", value, previousAngle);
-            } else {
-                animator = ValueAnimator.ofInt(previousAngle, nextAngle);
-                Timber.v("animating %d (%d°) to %d (%d°)", value, previousAngle, nextValue, nextAngle);
-            }
+            ValueAnimator animator = ValueAnimator.ofInt(previousAngle, nextAngle);
             animator.setDuration(1000);
             animator.setInterpolator(interpolator);
             // The following Listener will update the view every time the Animator has a new value
-            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    ArcView.this.angle = ((Number) animation.getAnimatedValue()).intValue() % 360;
-                    ArcView.this.invalidate();
-                    ArcView.this.requestLayout();
-                }
-            });
+            animator.addUpdateListener(animationListener);
             animator.start();
         }
     }
