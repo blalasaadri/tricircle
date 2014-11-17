@@ -2,7 +2,7 @@
 <com.github.blalasaadri.tricircle.widget.Watchface
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:tricolour="http://schemas.android.com/apk/res-auto"
+    xmlns:tricircle="http://schemas.android.com/apk/res-auto"
     android:id="@+id/watchface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,11 +20,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:contentDescription="@string/ring_hour_descr"
-        tricolour:angle="0"
-        tricolour:lineWidth="2"
-        tricolour:handRadius="8"
-        tricolour:scale=".74"
-        tricolour:color="@color/red" />
+        tricircle:angle="30"
+        tricircle:lineWidth="2"
+        tricircle:handRadius="8"
+        tricircle:scale=".74"
+        tricircle:color="@color/red" />
 
     <com.github.blalasaadri.tricircle.widget.ArcView
         android:id="@+id/minute_arc"
@@ -32,11 +32,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:contentDescription="@string/ring_minute_descr"
-        tricolour:angle="0"
-        tricolour:lineWidth="2"
-        tricolour:handRadius="8"
-        tricolour:scale=".62"
-        tricolour:color="@color/yellow" />
+        tricircle:angle="220"
+        tricircle:lineWidth="2"
+        tricircle:handRadius="8"
+        tricircle:scale=".62"
+        tricircle:color="@color/yellow" />
 
     <com.github.blalasaadri.tricircle.widget.ArcView
         android:id="@+id/second_arc"
@@ -44,11 +44,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:contentDescription="@string/ring_second_descr"
-        tricolour:angle="0"
-        tricolour:lineWidth="2"
-        tricolour:handRadius="8"
-        tricolour:scale=".50"
-        tricolour:color="@color/blue" />
+        tricircle:angle="100"
+        tricircle:lineWidth="2"
+        tricircle:handRadius="8"
+        tricircle:scale=".50"
+        tricircle:color="@color/blue" />
 
     <ImageView style="@style/GearsWatchLayer"
         android:id="@+id/charge_indicator"
